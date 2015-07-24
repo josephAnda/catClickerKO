@@ -1,12 +1,15 @@
 var ViewModel = function() {
-
-	this.currentCat = ko.observable( new Cat() );
+	var self = this;  //  Prevents ambiguity in the event of nested binding contexts and functions
+	self.currentCat = ko.observable( new Cat() );
 	
 	this.incrementCounter = function() {
-		this.clickCount(this.clickCount() + 1);
+		self.currentCat().clickCount(self.currentCat().clickCount() + 1);
 	};
 }
-
+//  The binding contexts referenced in the html determine how observables should be referenced 
+//  In the code.  Furthermore, the meaning of 'this' changes as you nest functions, and the need to 
+//  Reference parents changes as you nest binding contexts.  
+//  Redefining 'this' as 'self' can also help prevent ambiguity with the keyword 'this'
 var Cat = function() {
 	this.clickCount = ko.observable(0);
 	this.name = ko.observable('Tommy');
