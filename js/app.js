@@ -65,9 +65,14 @@ var ViewModel = function() {
 	});
 	self.currentCat = ko.observable( self.catList()[0] );
 	
-	this.incrementCounter = function() {
+	self.incrementCounter = function() {
 		self.currentCat().clickCount(self.currentCat().clickCount() + 1);
 	};
+
+	self.changeCat = function(cat) {
+		self.currentCat(cat);
+	}
+
 }
 //  The binding contexts referenced in the html determine how observables should be referenced 
 //  In the code.  Furthermore, the meaning of 'this' changes as you nest functions, and the need to 
